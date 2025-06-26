@@ -1,13 +1,90 @@
+@use 'sass:map';
+
+$breakpoints: (
+  phone: 320px,
+  phone-wide: 375px,
+  phone-large: 425px,
+  tablet: 768px,
+  tablet-wide: 834px,
+  laptop: 1024px,
+  laptop-wide: 1280px,
+  desktop: 1440px,
+  desktop-wide: 1600px,
+  desktop-ultra-wide: 1920px,
+  ultra-wide: 2560px
+);
+
+@mixin device($device, $type: min) {
+  @if map.has-key($breakpoints, $device) {
+    $size: map.get($breakpoints, $device);
+    @if $type == min {
+      @media (min-width: $size) {
+        @content;
+      }
+    }
+    @else if $type == max {
+      @media (max-width: ($size - 1)) {
+        @content;
+      }
+    }
+    @else {
+      @warn "Invalid type '#{$type}'. Use 'min' or 'max'.";
+    }
+  }
+  @else {
+    @warn "Breakpoint '#{$device}' is not defined in $breakpoints map.";
+  }
+}
+
 * {
   padding: 0px;
   margin: 0px;
 }
 
-html {
-  font-size: 14px;
+html, body {
   height: 100%;
+}
 
-  body {
-    height: 100%;
+html {
+  font-size: 10px;
+
+  @include device(phone-wide) {
+    font-size: 12px;
+  }
+
+  @include device(phone-large) {
+    font-size: 12px;
+  }
+
+  @include device(tablet) {
+    font-size: 15px;
+  }
+
+  @include device(tablet-wide) {
+    font-size: 15px;
+  }
+
+  @include device(laptop) {
+    font-size: 20px;
+  }
+
+  @include device(laptop-wide) {
+    font-size: 20px;
+  }
+
+  @include device(desktop) {
+    font-size: 20px;
+  }
+
+  @include device(desktop-wide) {
+    font-size: 25px;
+  }
+
+  @include device(desktop-ultra-wide) {
+    font-size: 25px;
+  }
+
+  @include device(ultra-wide) {
+    font-size: 25px;
   }
 }
