@@ -1,6 +1,6 @@
 {
   "name": "z01a.io",
-  "version": "1.0.2-dev",
+  "version": "1.0.2",
   "private": true,
   "type": "module",
   "scripts": {
